@@ -6,11 +6,12 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#fff"
+      borderColor: "#fff",
     },
     "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
       borderColor: "#fff",
@@ -30,7 +31,7 @@ function Header() {
           id="Search"
           freeSolo
           options={items}
-          getOptionLabel={(option)=> option.login}
+          getOptionLabel={(option) => option.login}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -49,7 +50,10 @@ function Header() {
                 {parts.map((part, index) => (
                   <span
                     key={index}
-                    style={{ fontWeight: part.highlight ? 700 : 400, fontSize:'2rem'}}
+                    style={{
+                      fontWeight: part.highlight ? 700 : 400,
+                      fontSize: "2rem",
+                    }}
                   >
                     {part.text}
                   </span>
@@ -59,6 +63,12 @@ function Header() {
           }}
         />
       </div>
+      <button className="header__login">
+        <Link to="/login">Login</Link>
+      </button>
+      <button className="header__signup">
+        <Link to="/signup">Signup</Link>
+      </button>
     </div>
   );
 }
