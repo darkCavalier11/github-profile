@@ -1,15 +1,19 @@
 export const initialState = {
-  msg: [],
+  user: [],
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SAY_HELLO":
+    case "SUCCESS_LOGIN":
       return {
         ...state,
-        msg: [...state.msg, action.msg],
+        user: [...state.user, action.user],
       };
-
+    case "SUCCESS_LOGOUT":
+      return {
+        ...state,
+        user: [],
+      };
     default:
       return state;
   }

@@ -22,12 +22,12 @@
     color: white !important;
     font-size: 1.5rem !important;
 }
-.header__login, .header__signup {
+.header__option1, .header__option2 {
     font-size: 2rem;
     margin-left: 1rem;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background-color: white;
-    color: black;
+}
+.header__option1 {
+    width: 4rem;
+    height: 8rem;
+    background-color: red;
 }
