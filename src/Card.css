@@ -1,0 +1,26 @@
+.card__container {
+    height: fit-content;
+    margin: 2rem;
+    border: 1px solid black;
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    height: 15rem;
+    padding: 2rem;
+    max-width: 15rem !important;
+    transition: transform linear 0.2s;
+}
+.card__container:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+.MuiAvatar-img {
+    height: 100px !important;
+}
+.MuiAvatar-root, .MuiAvatar-circle {
+    height: 100px !important;
+    width: 100px !important;
+}
