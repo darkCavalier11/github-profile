@@ -4,11 +4,9 @@ import "./CardMain.css";
 
 function CardMain({ data, favDisabled, remDisabled }) {
   const user = JSON.parse(localStorage.getItem("user"));
-
   const addFav = (e) => {
     e.preventDefault();
-    if(user.savedProfiles.length == 0)
-      user.savedProfiles.push(data);
+    if (user.savedProfiles.length == 0) user.savedProfiles.push(data);
     for (let i = 0; i < user.savedProfiles.length; i++) {
       if (data.id == user.savedProfiles[i].id) {
         break;
@@ -49,19 +47,19 @@ function CardMain({ data, favDisabled, remDisabled }) {
         </div>
         <div>
           <span>URL : </span>
-          {data.url}
+          <a href={data.url} className="link">{data.url}</a>
         </div>
         <div>
-          <span>Repos : </span>
-          {data["public_repos"] || "None"}
+          <span>id : </span>
+          {data.id || "None"}
         </div>
         <div>
-          <span>Followers : </span>
-          {data.followers || "0"}
+          <span>score : </span>
+          {data.score || "0"}
         </div>
         <div>
-          <span>Following : </span>
-          {data.following || "0"}
+          <span>type : </span>
+          {data.type || "0"}
         </div>
         <button onClick={addFav} disabled={favDisabled}>
           Add to Favourites

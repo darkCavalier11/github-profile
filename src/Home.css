@@ -5,6 +5,11 @@
   flex-direction: column;
   margin-top: 1.5rem;
 }
+.home__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .home > div {
   display: flex;
   flex-wrap: wrap;
