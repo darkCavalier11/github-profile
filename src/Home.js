@@ -11,7 +11,7 @@ function Home() {
     }, [])
     return (
         <div className="home">
-            <h1>Favourites</h1>
+            <h1 className="home__legend">Favourites</h1>
             <div className="home__container">
                 {fav.map(item => (
                     <Card src={item.avatar_url} name={item.login} data={item}></Card>

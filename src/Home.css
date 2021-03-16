@@ -1,5 +1,4 @@
 .home {
-  background-color: blue;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,6 +7,8 @@
 }
 .home > div {
   display: flex;
-  background-color: green;
   flex-wrap: wrap;
+}
+.home__legend {
+  border-bottom: 1px solid gray;
 }

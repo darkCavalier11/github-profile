@@ -27,12 +27,19 @@
     margin-left: 1rem;
     cursor: pointer;
 }
+.header__legend {
+    background-color: white;
+    border-bottom: 1px solid gray;
+    width: 100vw;
+    text-align: center;
+
+}
 .header__option1 {
     width: 4rem;
     height: 8rem;
 }
 .header__res {
-    background-color: red;
+    background-color: white;
     width: 100vw;
     display: flex;
     overflow-x: hidden;

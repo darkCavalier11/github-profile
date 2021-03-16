@@ -22,14 +22,28 @@ const useStyles = makeStyles({
 });
 
 function Header() {
+  let user = JSON.parse(localStorage.getItem("user"));
+
   const [items, setitems] = useState([]);
   useEffect(() => {}, [items]);
-  let user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
   const history = useHistory();
   const handleSignout = (e) => {
     e.preventDefault();
     if (e.target.textContent == "Signout") {
+      let user = JSON.parse(localStorage.getItem("user"));
+      const url = "http://localhost:7000/profile";
+      axios({
+        url: url,
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        data: user,
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       localStorage.clear();
       history.push("/login");
     } else history.push("/signup");
@@ -67,7 +81,7 @@ function Header() {
         </div>
       </div>
       <hr></hr>
-      <h1>Search Result</h1>
+      <h1 className="header__legend">Search Result</h1>
       <div className="header__res">
         {items.map((data) => {
           return (
