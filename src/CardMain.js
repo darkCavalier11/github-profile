@@ -2,12 +2,25 @@ import { Avatar } from "@material-ui/core";
 import React, { useState } from "react";
 import "./CardMain.css";
 
-function CardMain({ data }) {
+function CardMain({ data, favDisabled, remDisabled }) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  
   const addFav = (e) => {
     e.preventDefault();
-    e.target.style.display = "none";
-    console.log("jfff\n");
   };
+  const removeFav = (e) => {
+    e.preventDefault();
+  };
+  if (user) {
+    favDisabled = false;
+    remDisabled = false;
+    if (user.savedProfiles.indexOf(data) != -1) {
+      favDisabled = true;
+    }
+    if (user.savedProfiles.indexOf(data) == -1) {
+      remDisabled = true;
+    }
+  }
   return (
     <div className="cardmain">
       <div className="cardmain__container">
@@ -31,8 +44,12 @@ function CardMain({ data }) {
           <span>Following : </span>
           {data.following || "0"}
         </div>
-        <button onClick={addFav}>Add to Favourites</button>
-        <button>Remove from Favourites</button>
+        <button onClick={addFav} disabled={favDisabled}>
+          Add to Favourites
+        </button>
+        <button onClick={removeFav} disabled={remDisabled}>
+          Remove from Favourites
+        </button>
       </div>
     </div>
   );

@@ -1,0 +1,13 @@
+.home {
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+.home > div {
+  display: flex;
+  background-color: green;
+  flex-wrap: wrap;
+}

@@ -5,7 +5,7 @@ import "./Header.css";
 import { makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Card from './Card';
+import Card from "./Card";
 
 const useStyles = makeStyles({
   root: {
@@ -23,17 +23,14 @@ const useStyles = makeStyles({
 
 function Header() {
   const [items, setitems] = useState([]);
-  useEffect(()=>{
-    
-  }, [items])
+  useEffect(() => {}, [items]);
   const [{ user }, dispatch] = useStateValue();
   console.log(localStorage.getItem("user"));
   const classes = useStyles();
 
   const fetchData = async function (e) {
     const searchText = e.target.value;
-    if(!searchText)
-      return;
+    if (!searchText) return;
     const url = `https://api.github.com/search/users?q=${searchText}&per_page=10`;
     try {
       const res = await axios.get(url);
@@ -56,9 +53,13 @@ function Header() {
           </div>
         </Link>
       </div>
+      <hr></hr>
+      <h1>Search Result</h1>
       <div className="header__res">
-        {items.map((data)=>{
-          return <Card src={data.avatar_url} name={data.login} data={data}></Card>
+        {items.map((data) => {
+          return (
+            <Card src={data.avatar_url} name={data.login} data={data}></Card>
+          );
         })}
       </div>
     </div>
