@@ -31,6 +31,10 @@ function CardMain({ data, favDisabled, remDisabled }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const addFav = (e) => {
     e.preventDefault();
+    if (!user) {
+      setIsFailure(true);
+      return;
+    }
     if (user.savedProfiles.length == 0) user.savedProfiles.push(data);
     for (let i = 0; i < user.savedProfiles.length; i++) {
       if (data.id == user.savedProfiles[i].id) {
@@ -45,6 +49,10 @@ function CardMain({ data, favDisabled, remDisabled }) {
     console.log(user.savedProfiles);
   };
   const removeFav = (e) => {
+    if (!user) {
+      setIsFailure(true);
+      return;
+    }
     e.preventDefault();
     for (let i = 0; i < user.savedProfiles.length; i++) {
       if (data.id == user.savedProfiles[i].id) {
@@ -109,7 +117,7 @@ function CardMain({ data, favDisabled, remDisabled }) {
       </Snackbar>
       <Snackbar open={isFailure} autoHideDuration={600} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          Error. Try again.
+          Login to add Profiles.
         </Alert>
       </Snackbar>
     </div>
