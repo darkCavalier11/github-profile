@@ -24,6 +24,11 @@ function Login() {
     setIsFailure(false);
   };
 
+  const signup = (e) => {
+    e.preventDefault();
+    history.push("/signup");
+  };
+
   const login = function (e) {
     e.preventDefault();
     const formData = {
@@ -63,6 +68,9 @@ function Login() {
         <input type="password" required className="login__password"></input>
         <button className="login__button" onClick={login}>
           Login
+        </button>
+        <button className="login__button" onClick={signup}>
+          Signup
         </button>
         <Snackbar open={isFailure} autoHideDuration={600} onClose={handleClose}>
           <Alert onClose={handleClose} severity="error">

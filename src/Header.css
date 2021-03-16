@@ -25,6 +25,7 @@
 .header__option1, .header__option2 {
     font-size: 1rem;
     margin-left: 1rem;
+    cursor: pointer;
 }
 .header__option1 {
     width: 4rem;

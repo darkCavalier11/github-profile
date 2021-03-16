@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useStateValue } from "./StateProvider";
 import "./Header.css";
 import { makeStyles } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Card from "./Card";
 
@@ -24,9 +24,21 @@ const useStyles = makeStyles({
 function Header() {
   const [items, setitems] = useState([]);
   useEffect(() => {}, [items]);
-  const [{ user }, dispatch] = useStateValue();
-  console.log(localStorage.getItem("user"));
-  const classes = useStyles();
+  let user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
+  const history = useHistory();
+  const handleSignout = (e) => {
+    e.preventDefault();
+    if (e.target.textContent == "Signout") {
+      localStorage.clear();
+      history.push("/login");
+    } else history.push("/signup");
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (e.target.textContent == "Hello Guest") history.push("/login");
+  };
 
   const fetchData = async function (e) {
     const searchText = e.target.value;
@@ -45,13 +57,14 @@ function Header() {
     <div className="header__container">
       <div className="header__searchBox">
         <input type="text" onChange={fetchData}></input>
-        <Link to="/login">
-          <div className="header__option">
-            <span className="header__option1">
-              Hello {4 ? "Guest" : user.first_name}
-            </span>
-          </div>
-        </Link>
+        <div className="header__option">
+          <span className="header__option1" onClick={handleLogin}>
+            Hello <b>{!user ? "Guest" : user.first_name}</b>
+          </span>
+          <span className="header__option2" onClick={handleSignout}>
+            {user ? "Signout" : "Signup"}
+          </span>
+        </div>
       </div>
       <hr></hr>
       <h1>Search Result</h1>

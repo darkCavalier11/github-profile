@@ -4,21 +4,40 @@ import "./CardMain.css";
 
 function CardMain({ data, favDisabled, remDisabled }) {
   const user = JSON.parse(localStorage.getItem("user"));
-  
+
   const addFav = (e) => {
     e.preventDefault();
+    if(user.savedProfiles.length == 0)
+      user.savedProfiles.push(data);
+    for (let i = 0; i < user.savedProfiles.length; i++) {
+      if (data.id == user.savedProfiles[i].id) {
+        break;
+      }
+      if (i == user.savedProfiles.length - 1) {
+        user.savedProfiles.push(data);
+      }
+    }
+    localStorage.setItem("user", JSON.stringify(user));
+    console.log(user.savedProfiles);
   };
   const removeFav = (e) => {
     e.preventDefault();
+    for (let i = 0; i < user.savedProfiles.length; i++) {
+      if (data.id == user.savedProfiles[i].id) {
+        user.savedProfiles.splice(i, 1);
+      }
+    }
+    localStorage.setItem("user", JSON.stringify(user));
+    console.log(user.savedProfiles);
   };
   if (user) {
     favDisabled = false;
-    remDisabled = false;
-    if (user.savedProfiles.indexOf(data) != -1) {
-      favDisabled = true;
-    }
-    if (user.savedProfiles.indexOf(data) == -1) {
-      remDisabled = true;
+    remDisabled = true;
+    for (let i = 0; i < user.savedProfiles.length; i++) {
+      if (user.savedProfiles[i].id == data.id) {
+        favDisabled = true;
+        remDisabled = false;
+      }
     }
   }
   return (
