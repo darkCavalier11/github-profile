@@ -4,6 +4,7 @@
   justify-content: center;
   flex-direction: column;
   margin-top: 1.5rem;
+  overflow: hidden;
 }
 .home__container {
   display: flex;
@@ -13,6 +14,7 @@
 .home > div {
   display: flex;
   flex-wrap: wrap;
+  overflow: hidden;
 }
 .home__legend {
   border-bottom: 1px solid gray;

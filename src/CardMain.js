@@ -1,8 +1,33 @@
 import { Avatar } from "@material-ui/core";
 import React, { useState } from "react";
 import "./CardMain.css";
+import MuiAlert from "@material-ui/lab/Alert";
+import { Snackbar } from "@material-ui/core";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 function CardMain({ data, favDisabled, remDisabled }) {
+  const [open, setOpen] = useState(false);
+  const [isSuccess, setisSuccess] = useState(false);
+  const [isFailure, setIsFailure] = useState(false);
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleSuccess = () => {
+    setisSuccess(true);
+  };
+  const handleFailure = () => {
+    setIsFailure(true);
+  };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+    setisSuccess(false);
+    setIsFailure(false);
+  };
   const user = JSON.parse(localStorage.getItem("user"));
   const addFav = (e) => {
     e.preventDefault();
@@ -15,6 +40,7 @@ function CardMain({ data, favDisabled, remDisabled }) {
         user.savedProfiles.push(data);
       }
     }
+    setisSuccess(true);
     localStorage.setItem("user", JSON.stringify(user));
     console.log(user.savedProfiles);
   };
@@ -23,6 +49,7 @@ function CardMain({ data, favDisabled, remDisabled }) {
     for (let i = 0; i < user.savedProfiles.length; i++) {
       if (data.id == user.savedProfiles[i].id) {
         user.savedProfiles.splice(i, 1);
+        setOpen(true);
       }
     }
     localStorage.setItem("user", JSON.stringify(user));
@@ -47,7 +74,9 @@ function CardMain({ data, favDisabled, remDisabled }) {
         </div>
         <div>
           <span>URL : </span>
-          <a href={data.url} className="link">{data.url}</a>
+          <a href={data.url} className="link">
+            {data.url}
+          </a>
         </div>
         <div>
           <span>id : </span>
@@ -68,6 +97,21 @@ function CardMain({ data, favDisabled, remDisabled }) {
           Remove from Favourites
         </button>
       </div>
+      <Snackbar open={open} autoHideDuration={800} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Removed Successfully
+        </Alert>
+      </Snackbar>
+      <Snackbar open={isSuccess} autoHideDuration={600} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Successfully Added
+        </Alert>
+      </Snackbar>
+      <Snackbar open={isFailure} autoHideDuration={600} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Error. Try again.
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

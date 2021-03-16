@@ -1,11 +1,18 @@
 import { Search } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
+import MuiAlert from "@material-ui/lab/Alert";
+import { Snackbar } from "@material-ui/core";
+
 import { useStateValue } from "./StateProvider";
 import "./Header.css";
 import { makeStyles } from "@material-ui/core";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Card from "./Card";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles({
   root: {
@@ -66,11 +73,30 @@ function Header() {
       console.log("Error");
     }
   };
-
+  const [open, setOpen] = useState(false);
+  const [isSuccess, setisSuccess] = useState(false);
+  const [isFailure, setIsFailure] = useState(false);
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleSuccess = () => {
+    setisSuccess(true);
+  };
+  const handleFailure = () => {
+    setIsFailure(true);
+  };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+    setisSuccess(false);
+    setIsFailure(false);
+  };
   return (
     <div className="header__container">
       <div className="header__searchBox">
-        <input type="text" onChange={fetchData}></input>
+        <input type="text" onChange={fetchData} placeholder="Search..."></input>
         <div className="header__option">
           <span className="header__option1" onClick={handleLogin}>
             Hello <b>{!user ? "Guest" : user.first_name}</b>
@@ -89,6 +115,21 @@ function Header() {
           );
         })}
       </div>
+      <Snackbar open={open} autoHideDuration={800} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Password Mismatch
+        </Alert>
+      </Snackbar>
+      <Snackbar open={isSuccess} autoHideDuration={600} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          Successfully Registered
+        </Alert>
+      </Snackbar>
+      <Snackbar open={isFailure} autoHideDuration={600} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          Error. Try again.
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
